@@ -6,7 +6,7 @@ var router = express.Router();
 router.use(express.json());
 
 // sign up route
-router.post('/user', function(req, res) {
+router.post('/', function(req, res) {
     var responseBuilder = new JsonResponseBuilder();
     responseBuilder.setPayload(req);
     User.find({email: req.body.email}, function(err, user) {
@@ -36,4 +36,6 @@ router.post('/user', function(req, res) {
     });
 });
 
-router.get()
+router.get('/', function(req, res) {
+    
+})
