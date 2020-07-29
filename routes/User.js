@@ -43,6 +43,7 @@ router.post('/', function(req, res) {
     });
 });
 
+// sign in route
 router.get('/', function(req, res) {
     var responseBuilder = new JsonResponseBuilder();
     responseBuilder.setPayload(req);
@@ -68,6 +69,7 @@ router.get('/', function(req, res) {
     });
 })
 
+// authentification route
 router.get('/authentification', function(req, res) {
     var responseBuilder = new JsonResponseBuilder();
     responseBuilder.setPayload(req);
