@@ -1,3 +1,4 @@
 module.exports = {
-    databaseLink: 'mongodb://localhost/ququmbers'
+    databaseLink: 'mongodb://localhost/ququmbers',
+    secret: 'shhhhhhared-secret'
 }
