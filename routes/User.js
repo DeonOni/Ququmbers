@@ -67,3 +67,17 @@ router.get('/', function(req, res) {
         return res.send(responseBuilder.build());
     });
 })
+
+router.get('/authentification', function(req, res) {
+    var responseBuilder = new JsonResponseBuilder();
+    responseBuilder.setPayload(req);
+    var token = req.headers['authorization'];
+    jwt.verify(token, config.secret, function(err, decodedToken) {
+        if (err) {
+            responseBuilder.setMessage('Wrong jwt token');
+            responseBuilder.setStatus(401);
+            return res.send(responseBuilder.build());
+        }
+        return res.send(responseBuilder.build());
+    });
+});
