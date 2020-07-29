@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const config = require('../config');
 let User = require('../models/User');
 let JsonResponseBuilder = require('../JsonResponseBuilder');
@@ -22,7 +23,11 @@ router.post('/', function(req, res) {
             responseBuilder.setStatus(403);
             return res.send(responseBuilder.build());
         }
-        var newUser = new User(req.body);
+        var newUser = new User({
+            email: req.body.email,
+            name: req.body.name,
+            password: bcrypt.hashSync(req.body.password, config.secret)
+        });
         newUser.save(function(err) {
             if (err) {  // error while saving
                 responseBuilder.setMessage('An error occured while saving new user, try again');
