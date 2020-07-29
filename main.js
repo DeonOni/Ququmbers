@@ -1,5 +1,9 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const config = require('./config');
 
+mongoose.connect(config.databaseLink);
+let db = mongoose.connection;
 var app = express();
 app.use(express.json());
 
