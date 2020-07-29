@@ -1,4 +1,6 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 let User = require('../models/User');
 let JsonResponseBuilder = require('../JsonResponseBuilder');
 
@@ -37,5 +39,26 @@ router.post('/', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-    
+    var responseBuilder = new JsonResponseBuilder();
+    responseBuilder.setPayload(req);
+    User.find({email: req.body.email, password: req.body.password}, function(err, user) {
+        if (err) {
+            responseBuilder.setMessage('An error occured while searching for user');
+            responseBuilder.setStatus(500);
+            return res.send(responseBuilder.build());
+        }
+        if (user) {
+            responseBuilder.setData({
+                user: {
+                    name: user.name,
+                    email: user.email
+                },
+                token: jwt.sign({email: user.name}, config.secret)
+            });
+            return res.send(responseBuilder.build());
+        }
+        responseBuilder.getMessage('Wrong e-mail or password');
+        responseBuilder.setStatus(404);
+        return res.send(responseBuilder.build());
+    });
 })
