@@ -20,6 +20,14 @@ router.post('/user', function(req, res) {
             responseBuilder.setStatus(403);
             return res.send(responseBuilder.build());
         }
+        var newUser = new User(req.body);
+        newUser.save(function(err) {
+            if (err) {  // error while saving
+                responseBuilder.setMessage('An error occured while saving new user, try again');
+                responseBuilder.setStatus(422);
+                return res.send(responseBuilder.build());
+            }
+        });
         responseBuilder.setData({
             name: user.name,
             email: user.email
@@ -28,4 +36,4 @@ router.post('/user', function(req, res) {
     });
 });
 
-
+router.get()
