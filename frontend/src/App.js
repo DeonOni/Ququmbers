@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
-import Timer from './Components/Timer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './Components/Header.js'
+
 
 function App() {
   return (
-    <Timer></Timer>
+    <div>
+      <Header />
+    </div>
   );
 }
 
