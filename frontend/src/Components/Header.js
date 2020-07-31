@@ -79,7 +79,7 @@ export default class Header extends Component {
                             <Nav.Link href="/" >Contacts</Nav.Link>
                         </Nav>
                         <Form inline>
-                            <button type="button" className="btn btn-primary" onClick={this.handleShow}>Sign up/in?</button>
+                            <button type="button" className="btn btn-info" onClick={this.handleShow}>Sign up/in?</button>
                         </Form>
                     </Navbar.Collapse>
                 </Container>
