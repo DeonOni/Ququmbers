@@ -1,8 +1,15 @@
 import React, {Component} from 'react'
 import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
+import {bounceIn, swing, tada} from 'react-animations'
+import styled, {keyframes} from 'styled-components'
 
 import '../App.css';
+
+
+const BounceIn = styled.div`animation: 0.5s ${keyframes `${bounceIn}`}`;
+const Swing = styled.div`animation: 0.5s ${keyframes `${swing}`}`;
+const Tada = styled.div`animation: 2s ${keyframes `${tada}`}`;
 
 
 class Timer extends Component {
@@ -14,16 +21,16 @@ class Timer extends Component {
         innerJSX: this.waitingForStartRender(),
         resultMessage: null,
         restTime: {
-            minutes: 5,
-            seconds: 0
+            minutes: 0,  // 5
+            seconds: 5
         },
         workTime: {
-            minutes: 25,
-            seconds: 0
+            minutes: 0,  // 25
+            seconds: 5
         },
         longRestTime: {
-            minutes: 15,
-            seconds: 0
+            minutes: 0,  // 15
+            seconds: 5
         }
     }
 
@@ -90,7 +97,7 @@ class Timer extends Component {
             localStorage.phaseCounter = this.state.phaseCounter;
             clearInterval(this.intervalId);
         } else {
-            if (this.state.phaseCounter % 2 !== 0) {  // work phase
+            if (this.state.phaseCounter % 2 === 0) {  // work phase
                 this.setState({
                     phaseCounter: this.state.phaseCounter + 1,
                     innerJSX: this.workPhaseRender(),
@@ -147,7 +154,7 @@ class Timer extends Component {
     workPhaseRender() {
         return (
             <div>
-                <h3>work work work work wooooooooooork!</h3>
+                <BounceIn><h3>work work work work wooooooooooork!</h3></BounceIn>
             </div>
         );
     }
@@ -155,7 +162,7 @@ class Timer extends Component {
     restPhaseRender() {
         return (
             <div>
-                <h3>Ququmber is having a rest...</h3>
+                <Swing><h3>Ququmber is having a rest...</h3></Swing>
             </div>
         );
     }
@@ -163,7 +170,7 @@ class Timer extends Component {
     longRestPhaseRender() {
         return (
             <div>
-                <h3>long rest time!</h3>
+                <Tada><h3>long rest time!</h3></Tada>
             </div>
         );
     }
