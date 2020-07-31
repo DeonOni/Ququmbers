@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import '../App.css'
 
 class TimerSettingsComponent extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class TimerSettingsComponent extends Component {
       innerJSX = this.formRender();
     }
     return (
-      <div>
+      <div class="margin-edges">
         <div className="accordion" onClick={this.toggleComponent}>Timer settings</div>
           {innerJSX}
       </div>

@@ -231,9 +231,9 @@ class Timer extends Component {
             button = this.startButtonRender();
         }
         return (
-            <div className="timer">
+            <div className="timer margin-edges">
                 <Jumbotron>
-                    <h1>Ququmber timer</h1>
+                    <h1 className='ququmber-font'>Ququmber timer</h1>
                     <h2>{this.state.minutes}:{this.state.seconds}</h2>
                     <h2>{this.state.currendPhaseName}</h2>
                     {this.state.innerJSX}
