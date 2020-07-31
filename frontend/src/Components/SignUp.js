@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "./js/jsForSignUp";
 
 class SignUp extends Component {
   render() {
