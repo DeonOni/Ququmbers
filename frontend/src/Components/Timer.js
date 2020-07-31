@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
-import {bounceIn, swing, tada} from 'react-animations'
+import {bounceIn, swing, tada, flipInX} from 'react-animations'
 import styled, {keyframes} from 'styled-components'
 
 import '../App.css';
@@ -10,6 +10,7 @@ import '../App.css';
 const BounceIn = styled.div`animation: 0.5s ${keyframes `${bounceIn}`}`;
 const Swing = styled.div`animation: 0.5s ${keyframes `${swing}`}`;
 const Tada = styled.div`animation: 2s ${keyframes `${tada}`}`;
+const FlipInX = styled.div`animation: 0.5s ${keyframes `${flipInX}`}`;
 
 
 class Timer extends Component {
@@ -146,7 +147,7 @@ class Timer extends Component {
     waitingForStartRender() {
         return (
             <div>
-                <p>Press start button to start the session</p>
+                <FlipInX><p>Press start button to start the session</p></FlipInX>
             </div>
         );
     }

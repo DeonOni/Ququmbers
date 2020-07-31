@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import {fadeIn} from 'react-animations';
+import styled, {keyframes} from 'styled-components';
+
+const FadeIn = styled.div`animation: 0.5s ${keyframes `${fadeIn}`}`;
 
 class SignUp extends Component {
   render() {
     return (
-      <div className="formContainer">
+      <FadeIn>
+        <div className="formContainer">
         <Form action="http://localhost:9090/user" method="post">
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -45,6 +50,7 @@ class SignUp extends Component {
           </Button>
         </Form>
       </div>
+      </FadeIn>
     );
   }
 }

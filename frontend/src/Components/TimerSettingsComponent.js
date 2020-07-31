@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import {fadeInUp} from 'react-animations';
+import styled, {keyframes} from 'styled-components';
 import '../App.css'
+
+const FadeIn = styled.div`animation: 0.2s ${keyframes `${fadeInUp}`}`;
 
 class TimerSettingsComponent extends Component {
   constructor(props) {
@@ -21,19 +25,21 @@ class TimerSettingsComponent extends Component {
   formRender() {
     console.log('Form is rendered!');
     return (
-      <div>
-        <Form.Group>
-        <Form.Label >Phase</Form.Label>
-        <Form.Control size="sm" type="text" placeholder="Large text" />
-        <Form.Label className="settingsLabelStyle">Short Break</Form.Label>
-        <Form.Control size="sm" type="text" placeholder="Large text" />
-        <Form.Label className="settingsLabelStyle">Long Break</Form.Label>
-        <Form.Control size="sm" type="text" placeholder="Large text" />
-      </Form.Group>
-      <Button variant="success">
-      Submit
-    </Button>
+      <FadeIn>
+        <div>
+          <Form.Group>
+          <Form.Label >Phase</Form.Label>
+          <Form.Control size="sm" type="text" placeholder="Large text" />
+          <Form.Label className="settingsLabelStyle">Short Break</Form.Label>
+          <Form.Control size="sm" type="text" placeholder="Large text" />
+          <Form.Label className="settingsLabelStyle">Long Break</Form.Label>
+          <Form.Control size="sm" type="text" placeholder="Large text" />
+        </Form.Group>
+        <Button variant="success">
+        Submit
+      </Button>
       </div>
+      </FadeIn>
     );
   }
 
