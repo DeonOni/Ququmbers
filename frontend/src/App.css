@@ -1,4 +1,36 @@
-body {
+/* === Common === */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
+
+.section-outer {
+  padding: 0 40px;
+}
+
+.section-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+}
+/* === / Common === */
+
+/* === form === */
+.form-label {
+  font-weight: 700;
+}
+/* === / form === */
