@@ -14,16 +14,16 @@ class Timer extends Component {
         innerJSX: this.waitingForStartRender(),
         resultMessage: null,
         restTime: {
-            minutes: 0,
-            seconds: 3
+            minutes: 5,
+            seconds: 0
         },
         workTime: {
-            minutes: 0,
-            seconds: 5
+            minutes: 25,
+            seconds: 0
         },
         longRestTime: {
-            minutes: 0,
-            seconds: 5
+            minutes: 15,
+            seconds: 0
         }
     }
 
