@@ -7,7 +7,7 @@ class SignUp extends Component {
   render() {
     return (
       <div className="formContainer">
-        <Form action="http://localhost:9090/test" method="post">
+        <Form action="http://localhost:9090/user" method="post">
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" placeholder="Enter email" required />
@@ -23,11 +23,11 @@ class SignUp extends Component {
 
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control 
-              type="password" 
-              placeholder="Password" 
-              required 
-              id="password" 
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              required
+              id="password"
             />
           </Form.Group>
 
@@ -37,7 +37,7 @@ class SignUp extends Component {
               type="password"
               placeholder="Repeat Password"
               required
-              id="password-check" 
+              id="password-check"
             />
           </Form.Group>
 
