@@ -45,6 +45,29 @@ class Timer extends Component {
         this.stopButtonRender = this.stopButtonRender.bind(this);
     }
 
+    componentDidMount() {
+        this.setState({
+            minutes: JSON.parse(localStorage.minutes),
+            seconds: JSON.parse(localStorage.seconds),
+            phaseCounter: JSON.parse(localStorage.phaseCounter),
+            isActive: JSON.parse(localStorage.isActive)
+        });
+        console.log(JSON.parse(localStorage.phaseCounter));
+        
+        if (JSON.parse(localStorage.isActive)) {
+            this.intervalId = setInterval(this.decrementTime, 1000);
+            if (localStorage.phaseCounter === 9) {
+                this.setState({innerJSX: this.longRestPhaseRender()});
+            } else {
+                if (localStorage.phaseCounter % 2 !== 0) {
+                    this.setState({innerJSX: this.workPhaseRender()});
+                } else {
+                    this.setState({innerJSX: this.restPhaseRender()});
+                }
+            }
+        }
+    }
+
     switchPhase() {
         if (this.state.phaseCounter === 8) {
             this.setState({
@@ -53,6 +76,7 @@ class Timer extends Component {
                 minutes: this.state.longRestTime.minutes,
                 seconds: this.state.longRestTime.seconds
             });
+            localStorage.phaseCounter = this.state.phaseCounter;
         } else if (this.state.phaseCounter === 9) {
             this.setState({
                 phaseCounter: 0,
@@ -62,22 +86,26 @@ class Timer extends Component {
                 isActive: false,
                 resultMessage: 'Ququmber finished his working day!'
             });
+            localStorage.isActive = false;
+            localStorage.phaseCounter = this.state.phaseCounter;
             clearInterval(this.intervalId);
         } else {
             if (this.state.phaseCounter % 2 !== 0) {  // work phase
                 this.setState({
                     phaseCounter: this.state.phaseCounter + 1,
-                    innerJSX: this.restPhaseRender(),
+                    innerJSX: this.workPhaseRender(),
                     minutes: this.state.workTime.minutes,
                     seconds: this.state.workTime.seconds
                 });
+                localStorage.phaseCounter = this.state.phaseCounter;
             } else {  // rest phase
                 this.setState({
                     phaseCounter: this.state.phaseCounter + 1,
-                    innerJSX: this.workPhaseRender(),
+                    innerJSX: this.restPhaseRender(),
                     minutes: this.state.restTime.minutes,
                     seconds: this.state.restTime.seconds
                 });
+                localStorage.phaseCounter = this.state.phaseCounter;
             }
         }
     }
@@ -152,6 +180,8 @@ class Timer extends Component {
                 this.setState({seconds: 59, minutes: this.state.minutes - 1});
             }
         }
+        localStorage.minutes = this.state.minutes;
+        localStorage.seconds = this.state.seconds;
     }
 
     start() {
@@ -163,7 +193,8 @@ class Timer extends Component {
             seconds: this.state.workTime.seconds,
             isActive: true
         });
-        console.log(this.state.phaseCounter);
+        localStorage.isActive = true;
+        localStorage.phaseCounter = 1;
     }
 
     stop() {
@@ -174,6 +205,10 @@ class Timer extends Component {
             innerJSX: this.waitingForStartRender(),
             isActive: false
         });
+        localStorage.isActive = false;
+        localStorage.phaseCounter = 0;
+        localStorage.minutes = 0;
+        localStorage.seconds = 0;
         clearInterval(this.intervalId);
     }
     startButtonRender() {
