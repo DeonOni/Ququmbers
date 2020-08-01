@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import {fadeInUp} from 'react-animations';
 import styled, {keyframes} from 'styled-components';
 import Alert from 'react-bootstrap/Alert';
-import '../App.css'
+import '../App.css';
 
 const FadeIn = styled.div`animation: 0.2s ${keyframes `${fadeInUp}`}`;
 
@@ -37,7 +37,8 @@ class TimerSettingsComponent extends Component {
         minutes: '',
         seconds: ''
       },
-      showAlert: false
+      showAlert: false,
+      timerSettingsMessage: 'Timer settings'
     }
 
   }
@@ -71,6 +72,11 @@ class TimerSettingsComponent extends Component {
     this.hideAlert();
     console.log(this.state.copmonentIsShown);
     this.setState({copmonentIsShown: !this.state.copmonentIsShown});
+    if (this.state.copmonentIsShown) {
+      this.setState({timerSettingsMessage: 'Timer settings'});
+    } else {
+      this.setState({timerSettingsMessage: 'Hide'});
+    }
   }
 
   workTimeMinutesChangeHandler(e) {
@@ -186,7 +192,7 @@ class TimerSettingsComponent extends Component {
     }
     return (
       <div>
-        <div className="accordion" onClick={this.toggleComponent}>Timer settings</div>
+        <div className="accordion" onClick={this.toggleComponent}>{this.state.timerSettingsMessage}</div>
           {innerJSX}
       </div>
     );
