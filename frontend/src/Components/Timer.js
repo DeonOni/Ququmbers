@@ -244,7 +244,8 @@ class Timer extends Component {
             innerJSX: this.workPhaseRender(),
             minutes: this.state.workTime.minutes,
             seconds: this.state.workTime.seconds,
-            isActive: true
+            isActive: true,
+            timeOverMessage: null
         });
         localStorage.isActive = true;
         localStorage.phaseCounter = 1;
