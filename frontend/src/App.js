@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './Components/Header.js';
 import './bootstrap.min.css';
 import Timer from './Components/Timer';
-import TimerSettingsComponent from './Components/TimerSettingsComponent';
 
 
 function App() {
@@ -12,7 +11,6 @@ function App() {
     <div>
       <Header />
       <Timer/>
-      <TimerSettingsComponent/>
     </div>
   );
 }

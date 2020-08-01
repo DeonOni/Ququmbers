@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import {bounceIn, swing, tada, flipInX} from 'react-animations'
 import styled, {keyframes} from 'styled-components'
+import TimerSettingsComponent from './TimerSettingsComponent';
 
 import '../App.css';
 
@@ -20,19 +21,19 @@ class Timer extends Component {
         phaseCounter: 0,
         isActive: false,
         innerJSX: this.waitingForStartRender(),
-        resultMessage: null,
         restTime: {
-            minutes: 0,  // 5
-            seconds: 5
+            minutes: 5,  // 5
+            seconds: 0
         },
         workTime: {
-            minutes: 0,  // 25
-            seconds: 5
+            minutes: 25,  // 25
+            seconds: 0
         },
         longRestTime: {
-            minutes: 0,  // 15
-            seconds: 5
-        }
+            minutes: 15,  // 15
+            seconds: 0
+        },
+        timeOverMessage: null
     }
 
     constructor(props) {
@@ -92,7 +93,7 @@ class Timer extends Component {
                 minutes: 0,
                 seconds: 0,
                 isActive: false,
-                resultMessage: 'Ququmber finished his working day!'
+                timeOverMessage: (<Tada><h2>Ququmber has finished his working day!</h2></Tada>)
             });
             localStorage.isActive = false;
             localStorage.phaseCounter = this.state.phaseCounter;
@@ -119,6 +120,7 @@ class Timer extends Component {
     }
 
     setRestTime(mins, secs) {
+        this.stop();
         this.setState({
             restTime: {
                 minutes: mins,
@@ -127,6 +129,7 @@ class Timer extends Component {
     }
 
     setWorkTime(mins, secs) {
+        this.stop();
         this.setState({
             workTime: {
                 minutes: mins,
@@ -136,6 +139,7 @@ class Timer extends Component {
     }
 
     setLongRestTime(mins, secs) {
+        this.stop();
         this.setState({
             longRestTime: {
                 minutes: mins,
@@ -239,14 +243,24 @@ class Timer extends Component {
             button = this.startButtonRender();
         }
         return (
-            <div className="timer margin-edges">
-                <Jumbotron>
+            <div className="margin-bottom margin-edges">
+                <Jumbotron className="timer">
                     <h1 className='ququmber-font'>Ququmber timer</h1>
+                    {this.state.timeOverMessage}
                     <h2>{this.state.minutes}:{this.state.seconds}</h2>
                     <h2>{this.state.currendPhaseName}</h2>
                     {this.state.innerJSX}
                     {button}
+                    <p>Current settings:</p>
+        <h6>Work {this.state.workTime.minutes}:{this.state.workTime.seconds}</h6>
+        <h6>Rest: {this.state.restTime.minutes}:{this.state.restTime.seconds}</h6>
+        <h6>Long Rest: {this.state.longRestTime.minutes}:{this.state.longRestTime.seconds}</h6>
                 </Jumbotron>
+                <TimerSettingsComponent
+                workTimeSetter={this.setWorkTime}
+                restTimeSetter={this.setRestTime}
+                longRestTimeSetter={this.setLongRestTime}
+                />
             </div>
         );
     }
