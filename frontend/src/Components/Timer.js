@@ -36,6 +36,7 @@ class Timer extends Component {
         timeOverMessage: null
     }
 
+
     constructor(props) {
         super(props);
         this.intervalId = null;
@@ -52,6 +53,11 @@ class Timer extends Component {
         this.longRestPhaseRender = this.longRestPhaseRender.bind(this);
         this.startButtonRender = this.startButtonRender.bind(this);
         this.stopButtonRender = this.stopButtonRender.bind(this);
+
+        this.workTimeAudio = new Audio('./workTime.mp3');
+        this.restTimeAudio = new Audio('./restTime.mp3');
+        this.sessionFinishAudio = new Audio('./sessionFinished.mp3');
+        this.stopTimerAutio = new Audio('./stopTimer.mp3');
     }
 
     componentDidMount() {
@@ -102,6 +108,7 @@ class Timer extends Component {
     }
 
     switchPhase() {
+        this.restTimeAudio.play();
         if (this.state.phaseCounter === 8) {
             this.setState({
                 phaseCounter: this.state.phaseCounter + 1,
@@ -111,6 +118,7 @@ class Timer extends Component {
             });
             localStorage.phaseCounter = this.state.phaseCounter;
         } else if (this.state.phaseCounter === 9) {
+            this.sessionFinishAudio.play();
             this.setState({
                 phaseCounter: 0,
                 innerJSX: this.waitingForStartRender(),
@@ -124,6 +132,7 @@ class Timer extends Component {
             clearInterval(this.intervalId);
         } else {
             if (this.state.phaseCounter % 2 === 0) {  // work phase
+                this.workTimeAudio.play();
                 this.setState({
                     phaseCounter: this.state.phaseCounter + 1,
                     innerJSX: this.workPhaseRender(),
@@ -132,6 +141,7 @@ class Timer extends Component {
                 });
                 localStorage.phaseCounter = this.state.phaseCounter;
             } else {  // rest phase
+                this.restTimeAudio.play();
                 this.setState({
                     phaseCounter: this.state.phaseCounter + 1,
                     innerJSX: this.restPhaseRender(),
@@ -227,6 +237,7 @@ class Timer extends Component {
     }
 
     start() {
+        this.workTimeAudio.play();
         this.intervalId = setInterval(this.decrementTime, 1000);
         this.setState({
             phaseCounter: 1,
@@ -240,6 +251,7 @@ class Timer extends Component {
     }
 
     stop() {
+        this.stopTimerAutio.play();
         this.setState({
             minutes: 0,
             seconds: 0,
