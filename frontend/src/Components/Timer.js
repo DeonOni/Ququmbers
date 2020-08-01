@@ -55,25 +55,49 @@ class Timer extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            minutes: JSON.parse(localStorage.minutes),
-            seconds: JSON.parse(localStorage.seconds),
-            phaseCounter: JSON.parse(localStorage.phaseCounter),
-            isActive: JSON.parse(localStorage.isActive)
-        });
-        console.log(JSON.parse(localStorage.phaseCounter));
-        
-        if (JSON.parse(localStorage.isActive)) {
-            this.intervalId = setInterval(this.decrementTime, 1000);
-            if (localStorage.phaseCounter === 9) {
-                this.setState({innerJSX: this.longRestPhaseRender()});
-            } else {
-                if (localStorage.phaseCounter % 2 !== 0) {
-                    this.setState({innerJSX: this.workPhaseRender()});
+        try {
+            this.setState({
+                minutes: JSON.parse(localStorage.minutes),
+                seconds: JSON.parse(localStorage.seconds),
+                phaseCounter: JSON.parse(localStorage.phaseCounter),
+                isActive: JSON.parse(localStorage.isActive),
+                workTime: {
+                    minutes: JSON.parse(localStorage.workTimeMinutes),
+                    seconds: JSON.parse(localStorage.workTimeSeconds)
+                },
+                restTime: {
+                    minutes: JSON.parse(localStorage.restTimeMinutes),
+                    seconds: JSON.parse(localStorage.restTimeSeconds)
+                },
+                longRestTime: {
+                    minutes: JSON.parse(localStorage.longRestTimeMinutes),
+                    seconds: JSON.parse(localStorage.longRestTimeSeconds)
+                }
+            });
+
+            if (JSON.parse(localStorage.isActive)) {
+                this.intervalId = setInterval(this.decrementTime, 1000);
+                if (localStorage.phaseCounter === 9) {
+                    this.setState({innerJSX: this.longRestPhaseRender()});
                 } else {
-                    this.setState({innerJSX: this.restPhaseRender()});
+                    if (localStorage.phaseCounter % 2 !== 0) {
+                        this.setState({innerJSX: this.workPhaseRender()});
+                    } else {
+                        this.setState({innerJSX: this.restPhaseRender()});
+                    }
                 }
             }
+        } catch(e) {
+            localStorage.minutes = 0;
+            localStorage.seconds = 0;
+            localStorage.phaseCounter = 0;
+            localStorage.isActive = false;
+            localStorage.workTimeMinutes = 25;
+            localStorage.workTimeSeconds = 0;
+            localStorage.restTimeMinutes = 5;
+            localStorage.restTimeSeconds = 0;
+            localStorage.longRestTimeMinutes = 15;
+            localStorage.longRestTimeSeconds = 0;
         }
     }
 
@@ -126,6 +150,8 @@ class Timer extends Component {
                 minutes: mins,
                 seconds: secs
         }});
+        localStorage.restTimeMinutes = mins;
+        localStorage.restTimeSeconds = secs;
     }
 
     setWorkTime(mins, secs) {
@@ -136,6 +162,8 @@ class Timer extends Component {
                 seconds: secs
             }
         });
+        localStorage.workTimeMinutes = mins;
+        localStorage.workTimeSeconds = secs;
     }
 
     setLongRestTime(mins, secs) {
@@ -146,6 +174,8 @@ class Timer extends Component {
                 seconds: secs
             }
         });
+        localStorage.longRestTimeMinutes = mins;
+        localStorage.longRestTimeSeconds = secs;
     }
 
     waitingForStartRender() {
