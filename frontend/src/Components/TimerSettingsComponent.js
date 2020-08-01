@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {fadeInUp} from 'react-animations';
 import styled, {keyframes} from 'styled-components';
+import Alert from 'react-bootstrap/Alert';
 import '../App.css'
 
 const FadeIn = styled.div`animation: 0.2s ${keyframes `${fadeInUp}`}`;
@@ -18,6 +19,9 @@ class TimerSettingsComponent extends Component {
     this.restTimeSecondsChangeHandler = this.restTimeSecondsChangeHandler.bind(this);
     this.longRestTimeMinutesChangeHandler = this.longRestTimeMinutesChangeHandler.bind(this);
     this.longRestTimeSecondsChangeHandler = this.longRestTimeSecondsChangeHandler.bind(this);
+    this.showAlert = this.showAlert.bind(this);
+    this.hideAlert = this.hideAlert.bind(this);
+    this.setRecommendedValues = this.setRecommendedValues.bind(this);
     console.log('Parsing is:');
     this.state = {
       copmonentIsShown: false,
@@ -32,12 +36,39 @@ class TimerSettingsComponent extends Component {
       longRestTime: {
         minutes: '',
         seconds: ''
-      }
+      },
+      showAlert: false
     }
 
   }
 
+  setRecommendedValues() {
+    this.setState({
+      workTime: {
+        minutes: '25',
+        seconds: '0'
+      },
+      restTime: {
+        minutes: '5',
+        seconds: '0'
+      },
+      longRestTime: {
+        minutes: '15',
+        seconds: '0'
+      }
+    });
+  }
+
+  showAlert() {
+    this.setState({showAlert: true});
+  }
+
+  hideAlert() {
+    this.setState({showAlert: false});
+  }
+
   toggleComponent() {
+    this.hideAlert();
     console.log(this.state.copmonentIsShown);
     this.setState({copmonentIsShown: !this.state.copmonentIsShown});
   }
@@ -98,6 +129,9 @@ class TimerSettingsComponent extends Component {
     return (
       <FadeIn>
         <div>
+          <FadeIn><Alert show={this.state.showAlert} variant="success">
+          Changes have been applied successfully!
+        </Alert></FadeIn>
           <p>Recommended parameters: </p>
           <p>Work Time 25:0</p>
           <p>Rest Time 5:0</p>
@@ -116,12 +150,16 @@ class TimerSettingsComponent extends Component {
         <Button variant="success" onClick={this.apply}>
         Apply
       </Button>
+      <Button variant="secondary" onClick={this.setRecommendedValues}>
+        Set recommended values
+      </Button>
       </div>
       </FadeIn>
     );
   }
 
   apply() {
+    this.showAlert();
     var workTime = this.state.workTime;
     var restTime = this.state.restTime;
     var longRestTime = this.state.longRestTime;
