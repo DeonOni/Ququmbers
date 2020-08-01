@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap");
 
 .ququmber-font {
-  font-family: 'Henny Penny', cursive;
+  font-family: "Henny Penny", cursive;
 }
 /* === Common === */
 * {
@@ -85,4 +85,28 @@ a {
 
 .margin-bottom {
   margin-bottom: 5%;
+}
+
+html::before {
+  content: "";
+  background-image: url("../src/quq.png");
+  background-repeat: repeat;
+  position: absolute;
+  z-index: -5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+html::after {
+  content: "";
+  background-color: rgba(255, 255, 255, 0.8);
+  background-repeat: repeat;
+  position: absolute;
+  z-index: -5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
